@@ -40,7 +40,7 @@ const Blogs = () => {
                   Write about React hook useref?
                 </p>
                 <p className='text-gray-700'>
-                A hook is an opening statement (which is usually the first sentence) in an essay that attempts to grab the reader's attention so that they want to read on. It can be done by using a few different types of hooks, which are a question, quote, statistic, or anecdote.React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component. Hooks can be stateful and can manage side-effects.
+                React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component. Hooks can be stateful and can manage side-effects.
                   <br />
                   The useRef Hook allows you to persist values between renders.It can be used to store a mutable value that does not cause a re-render when updated.It can be used to access a DOM element directly.If we tried to count how many times our application renders using the useState Hook, we would be caught in an infinite loop since this Hook itself causes a re-render.To avoid this, we can use the useRef Hook.The useRef Hook is a function that returns a mutable ref object whose .current property is initialized with the passed argument.
                 </p>
