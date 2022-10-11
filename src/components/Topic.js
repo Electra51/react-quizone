@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link} from 'react-router-dom'
 
-const Book = ({ book }) => {
-  const { id, name, logo, total } = book
+const Topic = ({ topic }) => {
+  const { id, name, logo, total } = topic
   return (
-      <Link to={`../book/${id}`} aria-label='View Item'>
+      <Link to={`../topic/${id}`} aria-label='View Item'>
       <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <img
           
@@ -26,4 +26,4 @@ const Book = ({ book }) => {
   )
 }
 
-export default Book
+export default Topic

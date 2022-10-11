@@ -1,11 +1,11 @@
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 
-const BookDetails = () => {
-  const bookData = useLoaderData()
+const TopicDetails = () => {
+  const topicData = useLoaderData()
 //   console.log(bookData)
   const { image, title, desc, authors, publisher, year, rating, pdf, price } =
-    bookData
+    topicData
 
     return (
       
@@ -22,4 +22,4 @@ const BookDetails = () => {
   )
 }
 
-export default BookDetails
+export default TopicDetails

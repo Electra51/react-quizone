@@ -30,13 +30,13 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to={'/books'}
-                aria-label='Books'
-                title='books'
+                to={'/topics'}
+                aria-label='Topics'
+                title='topics'
                 className={({ isActive }) =>
               isActive ? 'font-medium tracking-wide text-white border-b border-b-neutral-50  transition-colors duration-200 hover:text-deep-purple-accent-400':'font-medium tracking-wide text-gray transition-colors duration-200 hover:text-deep-purple-accent-400'}
               >
-                Books
+                Topics
               </NavLink>
             </li>
             <li>
@@ -129,13 +129,13 @@ const Header = () => {
                         </NavLink>
                       </li>
                       <NavLink
-                to={'/books'}
-                aria-label='Books'
-                title='books'
+                to={'/topics'}
+                aria-label='Topics'
+                title='topics'
                 className={({ isActive }) =>
               isActive ? 'font-medium tracking-wide text-white border-b border-b-neutral-50  transition-colors duration-200 hover:text-deep-purple-accent-400':'font-medium tracking-wide text-gray transition-colors duration-200 hover:text-deep-purple-accent-400'}
               >
-                Books
+                Topics
               </NavLink>
                       <li>
                         <NavLink
