@@ -21,7 +21,7 @@ const Header = () => {
                 href='/home'
                 aria-label='Home'
                 title='Home'
-                className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                className='font-medium tracking-wide text-white transition-colors duration-200 hover:text-deep-purple-accent-400'
               >
                 Home
               </a>
@@ -31,7 +31,7 @@ const Header = () => {
                 href='/statistics'
                 aria-label='statistics'
                 title='Statistics'
-                className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                className='font-medium tracking-wide text-white transition-colors duration-200 hover:text-deep-purple-accent-400'
               >
                 Statistics
               </a>
@@ -41,7 +41,7 @@ const Header = () => {
                 href='/Blogs'
                 aria-label='Blogs'
                 title='Blogs'
-                className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                className='font-medium tracking-wide text-white transition-colors duration-200 hover:text-deep-purple-accent-400'
               >
                 Blogs
               </a>
@@ -76,8 +76,8 @@ const Header = () => {
                     <div>
                       <a
                         href='/'
-                        aria-label='Quizone'
-                        title='Quizone'
+                        aria-label='QuiZone'
+                        title='QuiZone'
                         className='inline-flex items-center'
                       >
                         <img src={logo} alt="" />
@@ -107,7 +107,7 @@ const Header = () => {
                           href='/'
                           aria-label='Home'
                           title='Home'
-                          className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                          className='font-medium tracking-wide text-white transition-colors duration-200 hover:text-deep-purple-accent-400'
                         >
                           Home
                         </a>
@@ -117,7 +117,7 @@ const Header = () => {
                           href='/Statistics'
                           aria-label='Statistics'
                           title='Statistics'
-                          className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                          className='font-medium tracking-wide text-white transition-colors duration-200 hover:text-deep-purple-accent-400'
                         >
                           Statistics
                         </a>
@@ -127,7 +127,7 @@ const Header = () => {
                           href='/blogs'
                           aria-label='Blogs'
                           title='Blogs'
-                          className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
+                          className='font-medium tracking-wide text-white transition-colors duration-200 hover:text-deep-purple-accent-400'
                         >
                           Blogs
                         </a>
