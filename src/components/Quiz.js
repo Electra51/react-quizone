@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ErrorPage = () => {
+const Quiz = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const ErrorPage = () => {
     );
 };
 
-export default ErrorPage;
+export default Quiz;
