@@ -8,6 +8,7 @@ import Topic from './Topic';
     
 const Topics = () => {
    
+    
     const loaderData= useLoaderData()
     const topicsdata = loaderData.data
     // console.log(topicsdata);
@@ -17,7 +18,9 @@ const Topics = () => {
             
                 {
                     topicsdata.map(topic => (
-                        <Topic key={topic.id} topic={topic} />
+                        <Topic
+                            key={topic.id} topic={topic}
+                        />
                     ))}
                        
                     

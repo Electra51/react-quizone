@@ -11,6 +11,7 @@ import TopicsDetails from "./components/TopicsDetails/TopicsDetails";
 
 
 
+
 const router = createBrowserRouter([
     {
       path: "/",
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         {
           path: '/',
           element: <Home></Home>,
+          
         },
         {
           path: 'home',
