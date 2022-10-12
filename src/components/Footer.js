@@ -4,8 +4,8 @@ import logo from '../images/logo.png'
 
 const Footer = () => {
     return (
-        <footer className='px-2 divide-y  text-gray-800 bg-gradient-to-r from-cyan-50  to-blue-600  '>
-        <div className='container flex flex-col items-center content-center justify-between py-5 mx-auto space-y-8 lg:flex-row lg:space-y-0'>
+        <footer className='px-2 divide-y  text-gray-800 bg-gradient-to-r from-cyan-50  to-blue-600 ' >
+        <div className='container flex flex-col items-center content-center py-5 mx-auto space-y-8 lg:flex-row lg:space-y-0'>
           <div className='lg:w-1/4'>
           <Link
             to={'/home'}
@@ -16,7 +16,7 @@ const Footer = () => {
                       <img src={logo} alt="" />
           </Link>
           </div>
-          <div className='grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4'>
+          <div className='grid grid-cols-2 items-center text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4'>
             <div className='space-y-3'>
               <h3 className='tracking-wide uppercase text-gray-50'>Product</h3>
               <ul className='space-y-1'>
@@ -24,7 +24,7 @@ const Footer = () => {
                   <Link to='/about'>Features</Link>
                 </li>
                 <li>
-                  <Link to='/about'>Components</Link>
+                  <Link to='/about'>About Us</Link>
                 </li>
                 <li>
                   <Link to='/about'>Pricing</Link>
@@ -61,7 +61,7 @@ const Footer = () => {
               </ul>
             </div>
             <div className='space-y-3'>
-              <div className='flex justify-center content-center items-center space-x-3'>
+              <div className='flex justify-center content-center items-center space-x-2'>
                 <Link
                   to='/about'
                   title='Facebook'
@@ -108,7 +108,7 @@ const Footer = () => {
           </div>
         </div>
         <div className='py-3 text-sm text-center text-gray-300'>
-          Copyright@2022QuiZone|All rights reserved.
+          Copyright@2022QuiZone | All rights reserved.
         </div>
       </footer>
     );

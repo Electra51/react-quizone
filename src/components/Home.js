@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import image from '../images/image1.png';
+
 
 
 
@@ -19,8 +21,8 @@ const Home = () => {
             </p>
           </div>
           <div className=''>
-            <a
-              href='/books'
+            <Link
+              to={'/Topics'}
               className='inline-flex items-center justify-center w-full h-12 px-6 mb-3 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto md:mr-4 md:mb-0 bg-blue-400 hover:bg-blue-700 focus:shadow-outline focus:outline-none'
             >
               <span className='mr-1 items-center'>Get Started</span>
@@ -36,7 +38,7 @@ const Home = () => {
                
                 
               </svg>
-            </a>
+            </Link>
             
           </div>
         </div>
@@ -50,4 +52,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home 

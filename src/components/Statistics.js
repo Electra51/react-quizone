@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis,  Tooltip,  ResponsiveContainer } from 'recharts';
 const Statistics = () => {
     const data = [
         { "id": 1, "name": "React", "logo": "https://live.staticflickr.com/65535/52413593240_e00326e727_o.png", "total": 8 },
@@ -10,13 +10,14 @@ const Statistics = () => {
    
     return (
         
-        <div>
+        <div className=''>
             <h2 className='p-5 my-8 font-sans text-2xl text-center font-bold tracking-tight text-gray-900 sm:text-3xl sm:leading-none'>This is LineChart of total quiz per subject</h2>
-            <ResponsiveContainer width='75%' aspect={2}>
+            <div>
+            <ResponsiveContainer width='50%' height={500} aspect={1.7}>
         <LineChart
            
-          width={400}
-          height={300}
+          width={300}
+          height={500}
           data={data}>
           <Line type="monotone" dataKey="total" />
         
@@ -29,6 +30,7 @@ const Statistics = () => {
                 </LineChart>
                 
             </ResponsiveContainer>
+            </div>
         </div>
       
     );
