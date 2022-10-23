@@ -33,7 +33,7 @@ const Questionseven = () => {
                 <FontAwesomeIcon icon={faEye} />
                 </button>
             
-            <div className='flex justify-center gap-4 '>
+            <div className='flex justify-center gap-4 sm:flex flex-col'>
             <div>
             <div className="flex items-center mb-4 border-solid border-2 border-blue-600 rounded-md mx-10 my-5 p-4 bg-sky-200 ">
     <input onClick={()=>{fourr()}} id="default-radio-1" type="radio" value="" name="seven-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>

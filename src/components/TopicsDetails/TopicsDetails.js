@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //   import { faEye } from '@fortawesome/free-solid-svg-icons'
 // import Question from './Question';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Questionone from '../Questionone';
 import Questiontwo from '../Questiontwo';
