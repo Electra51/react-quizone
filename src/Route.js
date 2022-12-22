@@ -3,10 +3,10 @@ import { createBrowserRouter } from "react-router-dom";
 import Blogs from "./components/Blogs";
 import Topics from "./components/Topics";
 import ErrorPage from "./components/ErrorPage";
-import Home from "./components/Home";
 import Root from "./components/Root";
 import Statistics from "./components/Statistics";
 import TopicsDetails from "./components/TopicsDetails/TopicsDetails";
+import HomePage from "./components/HomePage";
 
 
 
@@ -20,12 +20,12 @@ const router = createBrowserRouter([
       children: [
         {
           path: '/',
-          element: <Home></Home>,
+          element: <HomePage></HomePage>,
           
         },
         {
           path: 'home',
-          element: <Home></Home>,
+          element: <HomePage></HomePage>,
           
           
         },
