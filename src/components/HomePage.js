@@ -1,15 +1,14 @@
-import React from 'react';
-import About from './About';
-import Home from './Home';
+import React from "react";
+import Hero from "./Hero";
+import WhyChoose from "./WhyChoose";
 
 const HomePage = () => {
-    return (
-        <div>
-            <Home></Home> 
-            <About></About>
-           
-        </div>
-    );
+  return (
+    <div>
+      <Hero />
+      <WhyChoose />
+    </div>
+  );
 };
 
 export default HomePage;

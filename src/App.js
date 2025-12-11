@@ -1,23 +1,17 @@
-import React from 'react';
-import {RouterProvider } from 'react-router-dom';
-import './App.css';
-import router from './Route';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from 'react';
-
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import router from "./Route";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 function App() {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-  },[])
-  return (
-    <div className="App">
-      
-      <RouterProvider router={router}></RouterProvider>
-    </div>
-  );
+  }, []);
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
-export default App
+export default App;
