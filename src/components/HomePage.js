@@ -11,8 +11,7 @@ const HomePage = () => {
       <Hero />
       <WhyChoose />
       <HowWorks />
-      <Newsletter />
-      <TestimonialCarousel />
+      <Newsletter /> <TestimonialCarousel />
     </div>
   );
 };

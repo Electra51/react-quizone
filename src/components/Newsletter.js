@@ -3,8 +3,7 @@ import React from "react";
 
 const Newsletter = () => {
   return (
-    <section className="px-4 py-20 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <section className="px-4 py-20 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 relative overflow-hidden dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -90,34 +89,6 @@ const Newsletter = () => {
       </div>
     </section>
   );
-
-  //   <style>{`
-  //     @keyframes blob {
-  //       0%, 100% { transform: translate(0, 0) scale(1); }
-  //       33% { transform: translate(30px, -50px) scale(1.1); }
-  //       66% { transform: translate(-20px, 20px) scale(0.9); }
-  //     }
-  //     .animate-blob {
-  //       animation: blob 7s infinite;
-  //     }
-  //     .animation-delay-2000 {
-  //       animation-delay: 2s;
-  //     }
-  //     .animation-delay-4000 {
-  //       animation-delay: 4s;
-  //     }
-  //     @keyframes slideUp {
-  //       from {
-  //         opacity: 0;
-  //         transform: translateY(30px);
-  //       }
-  //       to {
-  //         opacity: 1;
-  //         transform: translateY(0);
-  //       }
-  //     }
-  //   `}</style>
-  // </div>
 };
 
 export default Newsletter;
