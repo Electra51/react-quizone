@@ -5,6 +5,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@tanstack/react-query": "^5.101.2",
+    "axios": "^1.18.1",
     "framer-motion": "^12.42.2",
     "next": "latest",
     "react": "^19.2.0",
@@ -21,7 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^24.10.2",
+    "@types/node": "^24.13.2",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "postcss": "^8.4.17",
