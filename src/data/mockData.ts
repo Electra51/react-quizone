@@ -435,3 +435,247 @@ export const mockBlogCategories = [
   { name: "JavaScript", count: 30, icon: "⚡" },
   { name: "Career", count: 12, icon: "💼" }
 ];
+
+
+
+// src/data/dashboardMockData.ts
+
+export const candidateStats = {
+  totalAssessments: 24,
+  averageScore: 82,
+  currentStreak: 7,
+  rank: 156,
+  totalHours: 48,
+  certificates: 3,
+};
+
+export const recentAssessments = [
+  {
+    id: "1",
+    title: "React Hooks Mastery",
+    category: "React",
+    score: 92,
+    status: "completed",
+    date: "2024-01-20",
+    duration: "28 mins",
+    totalQuestions: 15,
+    correctAnswers: 14,
+  },
+  {
+    id: "2",
+    title: "TypeScript Advanced Types",
+    category: "TypeScript",
+    score: 78,
+    status: "completed",
+    date: "2024-01-18",
+    duration: "42 mins",
+    totalQuestions: 20,
+    correctAnswers: 16,
+  },
+  {
+    id: "3",
+    title: "CSS Grid & Flexbox",
+    category: "CSS",
+    score: 88,
+    status: "completed",
+    date: "2024-01-15",
+    duration: "18 mins",
+    totalQuestions: 10,
+    correctAnswers: 9,
+  },
+  {
+    id: "4",
+    title: "Next.js App Router",
+    category: "Next.js",
+    score: 0,
+    status: "in-progress",
+    date: "2024-01-22",
+    duration: "12 mins",
+    totalQuestions: 15,
+    correctAnswers: 0,
+  },
+  {
+    id: "5",
+    title: "JavaScript Async Patterns",
+    category: "JavaScript",
+    score: 85,
+    status: "completed",
+    date: "2024-01-12",
+    duration: "35 mins",
+    totalQuestions: 18,
+    correctAnswers: 15,
+  },
+];
+
+export const skillBreakdown = [
+  { skill: "React", score: 90, fullMark: 100 },
+  { skill: "TypeScript", score: 75, fullMark: 100 },
+  { skill: "CSS", score: 85, fullMark: 100 },
+  { skill: "JavaScript", score: 88, fullMark: 100 },
+  { skill: "Next.js", score: 70, fullMark: 100 },
+  { skill: "Testing", score: 65, fullMark: 100 },
+];
+
+export const weeklyProgress = [
+  { day: "Mon", score: 72, quizzes: 2 },
+  { day: "Tue", score: 80, quizzes: 3 },
+  { day: "Wed", score: 65, quizzes: 1 },
+  { day: "Thu", score: 88, quizzes: 2 },
+  { day: "Fri", score: 92, quizzes: 3 },
+  { day: "Sat", score: 78, quizzes: 2 },
+  { day: "Sun", score: 85, quizzes: 1 },
+];
+
+export const aiRecommendations = [
+  {
+    id: "1",
+    title: "Improve TypeScript Generics",
+    description: "Your generics score is below average. Practice with advanced type patterns.",
+    priority: "high",
+    category: "TypeScript",
+    estimatedTime: "2 hours",
+  },
+  {
+    id: "2",
+    title: "Master useEffect Cleanup",
+    description: "Focus on proper cleanup functions to prevent memory leaks.",
+    priority: "medium",
+    category: "React",
+    estimatedTime: "1 hour",
+  },
+  {
+    id: "3",
+    title: "Learn Testing Patterns",
+    description: "Your testing score needs improvement. Start with unit testing basics.",
+    priority: "high",
+    category: "Testing",
+    estimatedTime: "3 hours",
+  },
+];
+
+export const leaderBoard = [
+  { rank: 1, name: "Sarah Johnson", score: 98, avatar: "👩‍💻", badge: "🏆" },
+  { rank: 2, name: "Mike Chen", score: 96, avatar: "👨‍💻", badge: "🥈" },
+  { rank: 3, name: "Emily Davis", score: 94, avatar: "👩‍🎨", badge: "🥉" },
+  { rank: 4, name: "Alex Kumar", score: 92, avatar: "👨‍🔬", badge: "" },
+  { rank: 5, name: "You", score: 82, avatar: "🧑‍💻", badge: "⭐" },
+];
+
+// Admin Mock Data
+export const adminStats = {
+  totalUsers: 12453,
+  activeUsers: 3421,
+  totalQuizzes: 156,
+  totalSubmissions: 48920,
+  revenue: 24500,
+  avgCompletionRate: 78,
+};
+
+export const adminUsers = [
+  {
+    id: "1",
+    name: "John Doe",
+    email: "john@example.com",
+    role: "candidate",
+    status: "active",
+    quizzesTaken: 15,
+    avgScore: 82,
+    joinedDate: "2024-01-01",
+  },
+  {
+    id: "2",
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "candidate",
+    status: "active",
+    quizzesTaken: 23,
+    avgScore: 91,
+    joinedDate: "2024-01-05",
+  },
+  {
+    id: "3",
+    name: "Bob Wilson",
+    email: "bob@example.com",
+    role: "admin",
+    status: "active",
+    quizzesTaken: 0,
+    avgScore: 0,
+    joinedDate: "2023-12-01",
+  },
+  {
+    id: "4",
+    name: "Alice Brown",
+    email: "alice@example.com",
+    role: "candidate",
+    status: "inactive",
+    quizzesTaken: 5,
+    avgScore: 67,
+    joinedDate: "2024-01-10",
+  },
+  {
+    id: "5",
+    name: "Charlie Lee",
+    email: "charlie@example.com",
+    role: "candidate",
+    status: "active",
+    quizzesTaken: 12,
+    avgScore: 88,
+    joinedDate: "2024-01-12",
+  },
+];
+
+export const adminQuizzes = [
+  {
+    id: "1",
+    title: "React Hooks Mastery",
+    category: "React",
+    difficulty: "Intermediate",
+    questions: 15,
+    attempts: 1234,
+    avgScore: 78,
+    status: "active",
+    createdBy: "Admin",
+  },
+  {
+    id: "2",
+    title: "TypeScript Advanced Types",
+    category: "TypeScript",
+    difficulty: "Advanced",
+    questions: 20,
+    attempts: 856,
+    avgScore: 65,
+    status: "active",
+    createdBy: "Admin",
+  },
+  {
+    id: "3",
+    title: "CSS Grid & Flexbox",
+    category: "CSS",
+    difficulty: "Beginner",
+    questions: 10,
+    attempts: 2100,
+    avgScore: 82,
+    status: "active",
+    createdBy: "AI Generated",
+  },
+  {
+    id: "4",
+    title: "JavaScript ES6+",
+    category: "JavaScript",
+    difficulty: "Intermediate",
+    questions: 18,
+    attempts: 1560,
+    avgScore: 74,
+    status: "draft",
+    createdBy: "Admin",
+  },
+];
+
+export const monthlyRevenue = [
+  { month: "Jul", revenue: 18000, users: 890 },
+  { month: "Aug", revenue: 20000, users: 1020 },
+  { month: "Sep", revenue: 19500, users: 1100 },
+  { month: "Oct", revenue: 22000, users: 1250 },
+  { month: "Nov", revenue: 23000, users: 1380 },
+  { month: "Dec", revenue: 24500, users: 1500 },
+];
