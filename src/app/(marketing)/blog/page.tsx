@@ -1,8 +1,9 @@
 import React from 'react'
+import BlogPage from '../../../components/pages/BlogPage'
 
 const Blog = () => {
   return (
-    <div>Blog</div>
+    <BlogPage/>
   )
 }
 
