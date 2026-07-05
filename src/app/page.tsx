@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Navbar } from "../components/Navbar";
 import { faqs, featureCards, featuredAssessments, heroHighlights, performers, quizCategories, testimonials } from "../lib/landingPageData";
 import { topics } from "../lib/quizData";
-import { Footer } from "../components/Footer";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 
 export const metadata: Metadata = {
@@ -158,7 +158,7 @@ export default function HomePage() {
         </section>
 
         <section className="container-custom pb-20">
-          <div className="rounded-3xl border border-blue-100 bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white shadow-xl">
+          <div className="rounded-3xl border border-blue-100 bg-linear-to-r from-blue-600 to-purple-600 p-8 text-white shadow-xl">
             <div className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-100">Ready to begin?</p>
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Take your next step with a modern frontend assessment platform.</h2>
