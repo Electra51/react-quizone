@@ -4,6 +4,7 @@ import { faqs, featureCards, featuredAssessments, heroHighlights, performers, qu
 import { topics } from "../lib/quizData";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import Hero from "../components/pages/homepage/Hero";
 
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-slate-50">
       <Navbar />
       <main>
-        <section className="container-custom grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        {/* <section className="container-custom grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
               Frontend Developer Assessment Platform
@@ -50,7 +51,9 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
+
+        <Hero/>
 
         <section className="container-custom pb-16">
           <div className="mb-8 max-w-3xl">

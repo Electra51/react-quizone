@@ -57,7 +57,7 @@ export default function CandidateDashboard() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white"
+        className="bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white"
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>

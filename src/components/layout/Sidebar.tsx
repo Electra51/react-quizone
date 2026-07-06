@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../../lib/utils";
+import Image from "next/image";
 
 interface SidebarProps {
   role: "candidate" | "admin";
@@ -62,14 +63,19 @@ export default function Sidebar({ role }: SidebarProps) {
       initial={false}
       animate={{ width: isCollapsed ? 80 : 260 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="h-screen bg-gray-900 text-white flex flex-col sticky top-0 overflow-hidden"
+      className="h-screen bg-linear-to-br from-blue-900 to-purple-900 text-white flex flex-col sticky top-0 overflow-hidden"
     >
       {/* Logo */}
-      <div className="flex items-center h-16 px-4 border-b border-gray-800">
-        <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-          <span className="text-white font-bold text-sm">F</span>
-        </div>
-        {!isCollapsed && (
+      <div className="flex items-center justify-between h-16 px-4 border-b border-blue-600">
+        <Image
+                     src="/logo1.png"
+                     alt="FrontendIQ logo"
+                     width={400}
+                     height={36}
+                     className="h-9 w-9 md:h-13 md:w-16 rounded-lg object-cover"
+                     priority
+                   />
+        {/* {!isCollapsed && (
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -77,22 +83,23 @@ export default function Sidebar({ role }: SidebarProps) {
           >
             FrontendIQ
           </motion.span>
-        )}
-      </div>
-
-      {/* Role Badge */}
-      {!isCollapsed && (
-        <div className="px-4 py-3">
+        )} */}
+         {!isCollapsed && (
+        <div className="px-3 py-3">
           <span className={cn(
             "px-3 py-1 rounded-full text-xs font-semibold",
             role === "admin"
               ? "bg-red-500/20 text-red-400"
-              : "bg-blue-500/20 text-blue-400"
+              : "bg-blue-400/20 text-blue-400"
           )}>
             {role === "admin" ? "👑 Admin" : "🎯 Candidate"}
           </span>
         </div>
       )}
+      </div>
+
+      {/* Role Badge */}
+     
 
       {/* Navigation */}
       <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
