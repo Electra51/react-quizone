@@ -1,5 +1,3 @@
-// src/types/index.ts
-
 export interface QuizCategory {
   id: string;
   name: string;

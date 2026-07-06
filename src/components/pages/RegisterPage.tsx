@@ -1,29 +1,28 @@
-// src/app/(auth)/register/page.tsx
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { User, Mail, Lock, Home, CheckCircle2 } from "lucide-react";
-import { RegisterFormData, registerSchema } from "../../lib/validations/auth";
-import { mockRegister } from "../../services/auth";
+import { RegisterFormData, registerSchema } from "@/src/lib/validations/auth";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
-
+import { authApi } from "@/src/lib/api";
+import Image from "next/image";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [apiError, setApiError] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -37,10 +36,9 @@ export default function RegisterPage() {
 
   const password = watch("password");
 
-  // Password strength indicator
   const getPasswordStrength = (pwd: string) => {
     if (!pwd) return { strength: 0, label: "", color: "" };
-    
+
     let strength = 0;
     if (pwd.length >= 8) strength++;
     if (/[A-Z]/.test(pwd)) strength++;
@@ -67,204 +65,199 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setApiError("");
-    setSuccessMessage("");
     setIsLoading(true);
 
     try {
-      const response = await mockRegister(data);
+      await authApi.register({
+        fullName: data.fullName,
+        email: data.email,
+        password: data.password,
+      });
 
-      if (response.success) {
-        setSuccessMessage(response.message);
-        reset();
-        // Redirect to login after 2 seconds
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 2000);
-      } else {
-        setApiError(response.message);
-      }
-    } catch (error) {
-      setApiError("Something went wrong. Please try again.");
+      // Redirect to login with success flag
+      router.push("/login?registered=true");
+    } catch (error: any) {
+      setApiError(error.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white rounded-2xl shadow-xl p-8"
+    <div
+      className="grid grid-cols-1 md:grid-cols-[45%_55%] md:gap-3 p-8"
     >
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-        <p className="text-gray-600">Start your frontend assessment journey</p>
+      <div className="flex flex-col justify-center items-center gap-3">
+        <Image
+          src="/logo1.png"
+          alt="FrontendIQ logo"
+          width={400}
+          height={36}
+          className="h-9 w-9 md:h-13 md:w-16 rounded-lg object-cover"
+          priority
+        />
+    
+        
+        <div className="text-center mb-8 mt-5">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Create Account
+          </h1>
+          <p className="text-gray-600">
+            Start your frontend assessment journey
+          </p>
+        </div>
       </div>
-
-      {/* Success Message */}
-      {successMessage && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg"
-        >
-          <p className="text-green-800 text-sm font-medium">✓ {successMessage}</p>
-        </motion.div>
-      )}
-
-      {/* Error Message */}
-      {apiError && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg"
-        >
-          <p className="text-red-800 text-sm font-medium">⚠ {apiError}</p>
-        </motion.div>
-      )}
-
-      {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <Input
-          label="Full Name"
-          type="text"
-          placeholder="John Doe"
-          icon={<User className="w-5 h-5" />}
-          error={errors.fullName?.message}
-          {...register("fullName")}
-        />
-
-        <Input
-          label="Email Address"
-          type="email"
-          placeholder="you@example.com"
-          icon={<Mail className="w-5 h-5" />}
-          error={errors.email?.message}
-          {...register("email")}
-        />
-
-        <div>
-          <Input
-            label="Password"
-            type="password"
-            placeholder="Create a strong password"
-            icon={<Lock className="w-5 h-5" />}
-            error={errors.password?.message}
-            helperText="Must contain uppercase, lowercase, number & special character"
-            {...register("password")}
-          />
-
-          {/* Password Strength Indicator */}
-          {password && (
-            <div className="mt-2">
-              <div className="flex gap-1 mb-1">
-                {[1, 2, 3, 4, 5].map((level) => (
-                  <div
-                    key={level}
-                    className={`h-1 flex-1 rounded-full transition-all ${
-                      level <= passwordStrength.strength
-                        ? passwordStrength.color
-                        : "bg-gray-200"
-                    }`}
-                  />
-                ))}
-              </div>
-              <p className="text-xs text-gray-600">
-                Password strength: <span className="font-semibold">{passwordStrength.label}</span>
-              </p>
-            </div>
-          )}
-        </div>
-
-        <Input
-          label="Confirm Password"
-          type="password"
-          placeholder="Re-enter your password"
-          icon={<Lock className="w-5 h-5" />}
-          error={errors.confirmPassword?.message}
-          {...register("confirmPassword")}
-        />
-
-        {/* Terms & Conditions */}
-        <div className="flex items-start gap-2">
-          <input
-            type="checkbox"
-            id="agreeToTerms"
-            {...register("agreeToTerms")}
-            className="w-4 h-4 mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-          />
-          <label htmlFor="agreeToTerms" className="text-sm text-gray-700 cursor-pointer">
-            I agree to the{" "}
-            <Link href="/terms" className="text-blue-600 hover:text-blue-700 font-medium">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy" className="text-blue-600 hover:text-blue-700 font-medium">
-              Privacy Policy
-            </Link>
-          </label>
-        </div>
-        {errors.agreeToTerms && (
-          <p className="text-sm text-red-500">⚠ {errors.agreeToTerms.message}</p>
+      <div className="lg:pr-26">
+        {apiError && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg"
+          >
+            <p className="text-red-800 text-sm font-medium">⚠ {apiError}</p>
+          </motion.div>
         )}
 
-        <Button type="submit" loading={isLoading} fullWidth>
-          Create Account
-        </Button>
-      </form>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <Input
+            label="Full Name"
+            type="text"
+            placeholder="John Doe"
+            icon={<User className="w-5 h-5" />}
+            error={errors.fullName?.message}
+            disabled={isLoading}
+            {...register("fullName")}
+          />
 
-      {/* Divider */}
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300" />
+          <Input
+            label="Email Address"
+            type="email"
+            placeholder="you@example.com"
+            icon={<Mail className="w-5 h-5" />}
+            error={errors.email?.message}
+            disabled={isLoading}
+            {...register("email")}
+          />
+
+         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+           <div>
+            <Input
+              label="Password"
+              type="password"
+              placeholder="Create a strong password"
+              icon={<Lock className="w-5 h-5" />}
+              error={errors.password?.message}
+              helperText="Must contain uppercase, lowercase, number & special character"
+              disabled={isLoading}
+              {...register("password")}
+            />
+
+            {password && (
+              <div className="mt-2">
+                <div className="flex gap-1 mb-1">
+                  {[1, 2, 3, 4, 5].map((level) => (
+                    <div
+                      key={level}
+                      className={`h-1 flex-1 rounded-full transition-all ${
+                        level <= passwordStrength.strength
+                          ? passwordStrength.color
+                          : "bg-gray-200"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="text-xs text-gray-600">
+                  Password strength:{" "}
+                  <span className="font-semibold">
+                    {passwordStrength.label}
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>
+
+          <Input
+            label="Confirm Password"
+            type="password"
+            placeholder="Re-enter your password"
+            icon={<Lock className="w-5 h-5" />}
+            error={errors.confirmPassword?.message}
+            disabled={isLoading}
+            {...register("confirmPassword")}
+          />
+         </div>
+
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              id="agreeToTerms"
+              {...register("agreeToTerms")}
+              disabled={isLoading}
+              className="w-4 h-4 mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            />
+            <label
+              htmlFor="agreeToTerms"
+              className="text-sm text-gray-700 cursor-pointer"
+            >
+              I agree to the{" "}
+              <Link
+                href="/terms"
+                className="text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
+          {errors.agreeToTerms && (
+            <p className="text-sm text-red-500">
+              ⚠ {errors.agreeToTerms.message}
+            </p>
+          )}
+
+          <Button type="submit" loading={isLoading} fullWidth>
+            Create Account
+          </Button>
+        </form>
+
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-4 bg-white text-gray-500">
+              Or continue with
+            </span>
+          </div>
         </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white text-gray-500">Or continue with</span>
+
+        <div className="grid grid-cols-2 gap-3">
+          <Button variant="outline" type="button" disabled={isLoading}>
+            <svg width="24px" height="24px" viewBox="0 0 30 30" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"><path d="M23.75,16A7.7446,7.7446,0,0,1,8.7177,18.6259L4.2849,22.1721A13.244,13.244,0,0,0,29.25,16" fill="#00ac47"/><path d="M23.75,16a7.7387,7.7387,0,0,1-3.2516,6.2987l4.3824,3.5059A13.2042,13.2042,0,0,0,29.25,16" fill="#4285f4"/><path d="M8.25,16a7.698,7.698,0,0,1,.4677-2.6259L4.2849,9.8279a13.177,13.177,0,0,0,0,12.3442l4.4328-3.5462A7.698,7.698,0,0,1,8.25,16Z" fill="#ffba00"/><polygon fill="#2ab2db" points="8.718 13.374 8.718 13.374 8.718 13.374 8.718 13.374"/><path d="M16,8.25a7.699,7.699,0,0,1,4.558,1.4958l4.06-3.7893A13.2152,13.2152,0,0,0,4.2849,9.8279l4.4328,3.5462A7.756,7.756,0,0,1,16,8.25Z" fill="#ea4435"/><polygon fill="#2ab2db" points="8.718 18.626 8.718 18.626 8.718 18.626 8.718 18.626"/><path d="M29.25,15v1L27,19.5H16.5V14H28.25A1,1,0,0,1,29.25,15Z" fill="#4285f4"/></svg>
+            Google
+          </Button>
+          <Button variant="outline" type="button" disabled={isLoading}>
+            <svg width="24px" height="24px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            GitHub
+          </Button>
         </div>
-      </div>
 
-      {/* Social Login */}
-      <div className="grid grid-cols-2 gap-3">
-        <Button variant="outline" type="button">
-          <Home className="w-5 h-5" />
-          Google
-        </Button>
-        <Button variant="outline" type="button">
-          <Home className="w-5 h-5" />
-          GitHub
-        </Button>
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
+          >
+            Login
+          </Link>
+        </p>
       </div>
-
-      {/* Login Link */}
-      <p className="text-center text-sm text-gray-600 mt-6">
-        Already have an account?{" "}
-        <Link
-          href="/login"
-          className="text-blue-600 hover:text-blue-700 font-semibold"
-        >
-          Login
-        </Link>
-      </p>
-
-      {/* Benefits */}
-      <div className="mt-6 p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-        <p className="text-xs text-blue-900 font-semibold mb-3">✨ What you get:</p>
-        <ul className="space-y-2">
-          {[
-            "3 free assessments",
-            "AI-powered skill analysis",
-            "Personalized learning path",
-            "Join 50K+ developers",
-          ].map((benefit, i) => (
-            <li key={i} className="flex items-center text-xs text-blue-700">
-              <CheckCircle2 className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-              {benefit}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
+    </div>
   );
 }
