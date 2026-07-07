@@ -19,6 +19,12 @@ export interface User {
   email: string;
   avatar?: string;
   role: "candidate" | "admin";
+  bio?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  portfolioUrl?: string;
+  experience?: number;
+  skills?: string[];
 }
 
 interface AuthContextType {

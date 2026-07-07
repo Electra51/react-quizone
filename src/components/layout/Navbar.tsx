@@ -43,7 +43,7 @@ const UserDropdown = memo(
     user,
     onLogout,
   }: {
-    user: { fullName: string; email: string; avatar?: string };
+    user: { fullName: string; email: string; avatar?: string; role: string };
     onLogout: () => void;
   }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -94,16 +94,18 @@ const UserDropdown = memo(
               
               <div className="py-1">
                  <Link
-                  href="/dashboard/profile"
+                  href={user.role === "admin" ? "/admin/profile" : "/candidate/profile"}
                   className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-indigo-600"
                   role="menuitem"
+                  onClick={() => setIsOpen(false)}
                 >
                   <User className="h-4 w-4" /> Profile
                 </Link>
                 <Link
-                  href="/dashboard"
+                  href={user.role === "admin" ? "/admin" : "/candidate/dashboard"}
                   className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-indigo-600"
                   role="menuitem"
+                  onClick={() => setIsOpen(false)}
                 >
                   <LayoutDashboard className="h-4 w-4" /> Dashboard
                 </Link>
@@ -147,13 +149,11 @@ export default function Navbar() {
         timer: 2000,
         showConfirmButton: false,
       });
-      router.push("/login");
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Logout failed",
-        text: "Please try again",
-      });
+      // Even if API fails (e.g., token already expired), we should still redirect
+      console.error("Logout API failed:", error);
+    } finally {
+      router.push("/login");
     }
   }, [logout, router]);
 
@@ -283,6 +283,7 @@ export default function Navbar() {
                     fullName: user.fullName,
                     email: user.email,
                     avatar: user.avatar,
+                    role: user.role,
                   }}
                   onLogout={handleLogout}
                 />
@@ -392,7 +393,7 @@ export default function Navbar() {
                 {isAuthenticated && (
                   <div className="space-y-1 px-2">
                     <Link
-                      href="/dashboard"
+                      href={user?.role === "admin" ? "/admin" : "/candidate/dashboard"}
                       className="flex items-center gap-3 text-gray-700 font-medium p-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >

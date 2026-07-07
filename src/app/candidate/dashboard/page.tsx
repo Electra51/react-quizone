@@ -15,6 +15,7 @@ import {
   CheckCircle2,
   BookOpen,
   Brain,
+  Loader2,
 } from "lucide-react";
 import {
   RadarChart,
@@ -31,13 +32,35 @@ import {
   Tooltip,
 } from "recharts";
 import Link from "next/link";
-import StatCard from "../../components/ui/StatCard";
-import { aiRecommendations, candidateStats, leaderBoard, recentAssessments, skillBreakdown, weeklyProgress } from "../../data/mockData";
-import { cn } from "../../lib/utils";
+
+import { useState, useEffect } from "react";
+import { userApi } from "@/src/lib/api/user";
+import { useAuth } from "@/src/context/AuthContext";
+import StatCard from "@/src/components/ui/StatCard";
+import { aiRecommendations, leaderBoard, skillBreakdown, weeklyProgress } from "@/src/data/mockData";
+import { cn } from "@/src/lib/utils";
 
 
 
 export default function CandidateDashboard() {
+  const { user } = useAuth();
+  const [dashboardData, setDashboardData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await userApi.getDashboardStats();
+        setDashboardData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch dashboard stats", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
   const getScoreColor = (score: number) => {
     if (score >= 90) return "text-green-600 bg-green-50";
     if (score >= 70) return "text-blue-600 bg-blue-50";
@@ -51,6 +74,13 @@ export default function CandidateDashboard() {
     return "text-green-600 bg-green-50 border-green-200";
   };
 
+  if (loading) {
+    return <div className="flex justify-center items-center h-64"><Loader2 className="w-8 h-8 animate-spin text-blue-600" /></div>;
+  }
+
+  const stats = dashboardData?.stats || { totalAssessments: 0, averageScore: 0, currentStreak: 0, rank: 0 };
+  const recentActivity = dashboardData?.recentActivity || [];
+
   return (
     <div className="space-y-6">
       {/* Welcome Header */}
@@ -61,7 +91,7 @@ export default function CandidateDashboard() {
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Welcome back, John! 👋</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.fullName?.split(" ")[0] || "Candidate"}! 👋</h1>
             <p className="text-blue-100 text-lg">
               You&apos;re on a 7-day streak! Keep it up and unlock new badges.
             </p>
@@ -76,52 +106,34 @@ export default function CandidateDashboard() {
         </div>
       </motion.div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Assessments"
-          value={candidateStats.totalAssessments}
+          value={stats.totalAssessments}
           icon={FileText}
           color="bg-blue-500"
-          trend={{ value: 12, isPositive: true }}
           index={0}
         />
         <StatCard
           title="Avg Score"
-          value={`${candidateStats.averageScore}%`}
+          value={`${Math.round(stats.averageScore)}%`}
           icon={Target}
           color="bg-green-500"
-          trend={{ value: 5, isPositive: true }}
           index={1}
         />
         <StatCard
           title="Streak"
-          value={`${candidateStats.currentStreak} days`}
+          value={`${stats.currentStreak} days`}
           icon={Flame}
           color="bg-orange-500"
           index={2}
         />
         <StatCard
           title="Rank"
-          value={`#${candidateStats.rank}`}
+          value={`#${stats.rank > 0 ? stats.rank : "-"}`}
           icon={Trophy}
           color="bg-purple-500"
-          trend={{ value: 23, isPositive: true }}
           index={3}
-        />
-        <StatCard
-          title="Hours Spent"
-          value={`${candidateStats.totalHours}h`}
-          icon={Clock}
-          color="bg-indigo-500"
-          index={4}
-        />
-        <StatCard
-          title="Certificates"
-          value={candidateStats.certificates}
-          icon={Award}
-          color="bg-yellow-500"
-          index={5}
         />
       </div>
 
@@ -211,9 +223,9 @@ export default function CandidateDashboard() {
           </div>
 
           <div className="space-y-3">
-            {recentAssessments.map((assessment, index) => (
+            {recentActivity.length > 0 ? recentActivity.map((submission: any, index: number) => (
               <motion.div
-                key={assessment.id}
+                key={submission._id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 * index }}
@@ -222,42 +234,46 @@ export default function CandidateDashboard() {
                 <div className="flex items-center gap-4">
                   <div className={cn(
                     "w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold",
-                    assessment.status === "in-progress"
+                    submission.status === "in-progress"
                       ? "bg-yellow-100 text-yellow-700"
-                      : getScoreColor(assessment.score)
+                      : getScoreColor(submission.percentage)
                   )}>
-                    {assessment.status === "in-progress" ? (
+                    {submission.status === "in-progress" ? (
                       <Clock className="w-5 h-5" />
                     ) : (
-                      `${assessment.score}`
+                      `${submission.percentage}`
                     )}
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 group-hover:text-blue-600 transition">
-                      {assessment.title}
+                      {submission.quiz?.title || "Unknown Assessment"}
                     </h4>
                     <p className="text-sm text-gray-500">
-                      {assessment.category} • {assessment.date} • {assessment.duration}
+                      {submission.quiz?.difficulty} • {new Date(submission.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
                   <span className={cn(
                     "px-3 py-1 rounded-full text-xs font-semibold",
-                    assessment.status === "completed"
+                    submission.status === "completed"
                       ? "bg-green-100 text-green-700"
                       : "bg-yellow-100 text-yellow-700"
                   )}>
-                    {assessment.status === "completed" ? "Completed" : "In Progress"}
+                    {submission.status === "completed" ? "Completed" : "In Progress"}
                   </span>
-                  {assessment.status === "completed" && (
+                  {submission.status === "completed" && (
                     <p className="text-xs text-gray-500 mt-1">
-                      {assessment.correctAnswers}/{assessment.totalQuestions} correct
+                      {submission.passed ? "Passed" : "Failed"}
                     </p>
                   )}
                 </div>
               </motion.div>
-            ))}
+            )) : (
+              <div className="text-center py-8 text-gray-500">
+                No recent activity found.
+              </div>
+            )}
           </div>
         </motion.div>
 

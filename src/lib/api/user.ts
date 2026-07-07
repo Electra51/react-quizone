@@ -7,6 +7,12 @@ const API_URL =
 
 export interface UpdateProfilePayload {
   fullName?: string;
+  bio?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  portfolioUrl?: string;
+  experience?: number;
+  skills?: string[];
 }
 
 export interface ChangePasswordPayload {
@@ -55,6 +61,12 @@ export const userApi = {
     return apiRequest("/users/me/password", {
       method: "PATCH",
       body: JSON.stringify(data),
+    });
+  },
+
+  getDashboardStats() {
+    return apiRequest("/users/me/dashboard", {
+      method: "GET",
     });
   },
 };
