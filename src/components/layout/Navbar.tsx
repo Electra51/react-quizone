@@ -8,13 +8,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   ChevronDown, 
   LogOut, 
-  Settings, 
   LayoutDashboard, 
   Menu, 
   X, 
-  User as UserIcon,
   Trophy,
-  ClipboardList
+  ClipboardList,
+  User
 } from "lucide-react";
 import Swal from "sweetalert2";
 import { useAuth } from "@/src/context/AuthContext";
@@ -38,7 +37,7 @@ function useClickOutside<T extends HTMLElement>(
   }, [ref, handler]);
 }
 
-// 🚀 Performance: Memoized UserDropdown with Framer Motion & Lucide
+// Performance: Memoized UserDropdown with Framer Motion & Lucide
 const UserDropdown = memo(
   ({
     user,
@@ -55,21 +54,21 @@ const UserDropdown = memo(
 
     const avatarUrl =
       user.avatar ||
-      `https://api.dicebear.com/7.0/avataaars.svg?seed=${user.email}`;
+      `/user.png`;
 
     return (
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={toggleDropdown}
-          className="flex items-center gap-2 p-1 rounded-full border border-transparent hover:border-gray-200 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="flex items-center gap-2 p-1 rounded-full border border-gray-200 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
           aria-expanded={isOpen}
           aria-haspopup="true"
         >
           <Image
             src={avatarUrl}
             alt={user.fullName}
-            width={36}
-            height={36}
+            width={34}
+            height={34}
             className="rounded-full object-cover ring-2 ring-gray-100"
           />
           <span className="hidden md:block text-sm font-medium text-gray-700">
@@ -94,6 +93,13 @@ const UserDropdown = memo(
               </div>
               
               <div className="py-1">
+                 <Link
+                  href="/dashboard/profile"
+                  className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-indigo-600"
+                  role="menuitem"
+                >
+                  <User className="h-4 w-4" /> Profile
+                </Link>
                 <Link
                   href="/dashboard"
                   className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-indigo-600"
@@ -160,7 +166,7 @@ export default function Navbar() {
     { name: "Next.js", href: "/assessments/nextjs", icon: "▲" },
   ];
 
-  // ✅ Loading skeleton for better UX
+  //  Loading skeleton for better UX
   if (isLoading) {
     return (
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
@@ -196,7 +202,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-3">
             {/* Assessments Dropdown */}
             <div className="relative" ref={assessmentsRef}>
               <button
@@ -239,14 +245,12 @@ export default function Navbar() {
             <Link href="/features" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-2 py-1">
               Features
             </Link>
-            <Link href="/blogs" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-2 py-1">
-              Blogs
-            </Link>
+            
             <Link href="/pricing" className="text-gray-600 hover:text-indigo-600 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-2 py-1">
               Pricing
             </Link>
 
-            {isAuthenticated && (
+            {/* {isAuthenticated && (
               <>
                 <Link
                   href="/dashboard"
@@ -261,7 +265,7 @@ export default function Navbar() {
                   <Trophy className="w-4 h-4" /> Leaderboard
                 </Link>
               </>
-            )}
+            )} */}
           </div>
 
           {/* Right Side: CTA & Profile */}
@@ -270,7 +274,7 @@ export default function Navbar() {
               <>
                 <Link
                   href="/assessments/start"
-                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-full hover:shadow-lg hover:shadow-indigo-500/25 transition-all font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center gap-2"
+                  className="px-5 py-2.5 bg-linear-to-tr from-[#3452F3] to-[#442a94] text-white rounded-full hover:shadow-lg hover:shadow-indigo-500/25 transition-all font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex items-center gap-2"
                 >
                   <ClipboardList className="w-4 h-4" /> Start Assessment
                 </Link>
@@ -293,7 +297,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/register"
-                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-full hover:shadow-lg hover:shadow-indigo-500/25 transition-all font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="px-5 py-2.5 bg-linear-to-tr from-[#3452F3] to-[#442a94] text-white rounded-full hover:shadow-lg hover:shadow-indigo-500/25 transition-all font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Get Started
                 </Link>
@@ -410,7 +414,7 @@ export default function Navbar() {
                     <div className="space-y-4">
                       <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
                         <Image
-                          src={user.avatar || `https://api.dicebear.com/7.0/avataaars.svg?seed=${user.email}`}
+                          src={user.avatar || `/user.png`}
                           alt={user.fullName}
                           width={44}
                           height={44}
@@ -452,7 +456,7 @@ export default function Navbar() {
                       </Link>
                       <Link
                         href="/register"
-                        className="flex justify-center items-center px-4 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors"
+                        className="flex justify-center items-center px-4 py-3 bg-linear-to-tr from-[#3452F3] to-[#442a94] text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         Get Started
