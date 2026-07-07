@@ -77,3 +77,14 @@ export interface AIAnalysis {
   };
   recommendations: string[];
 }
+
+
+// src/types/user.ts
+
+export interface User {
+  _id: string;
+  fullName: string;
+  email: string;
+  avatar?: string;
+  role: "candidate" | "admin";
+}

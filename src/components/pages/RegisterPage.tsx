@@ -10,8 +10,8 @@ import { User, Mail, Lock, CheckCircle2 } from "lucide-react";
 import { RegisterFormData, registerSchema } from "@/src/lib/validations/auth";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
-import { authApi } from "@/src/lib/api";
 import Image from "next/image";
+import { authApi } from "@/src/lib/api/auth";
 
 const trustPoints = [
   "Benchmark your React, Next.js & TypeScript skills",

@@ -8,28 +8,37 @@ import {
   useCallback,
   ReactNode,
 } from "react";
+import { userApi } from "../lib/api/user";
+import { authApi } from "../lib/api/auth";
 
-import { authApi } from "@/src/lib/api";
+
 
 export interface User {
-  id: string;
+  _id: string;
   fullName: string;
   email: string;
   avatar?: string;
-  role?: string;
+  role: "candidate" | "admin";
 }
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+
+  login: (
+    email: string,
+    password: string
+  ) => Promise<void>;
+
   register: (
     fullName: string,
     email: string,
     password: string
   ) => Promise<void>;
+
   logout: () => Promise<void>;
+
   refreshUser: () => Promise<void>;
 }
 
@@ -46,24 +55,31 @@ export function AuthProvider({
 
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Fetch logged in user
+   */
   const refreshUser = useCallback(async () => {
     try {
-      const response = await authApi.getMe();
+      const response = await userApi.getProfile();
 
-      setUser(response.data?.user ?? (response.data as any) ?? null);
-    } catch (error) {
-      // If the API request fails (e.g. 401 Unauthorized), silently clear the user
-      // We don't console.error this because it triggers Next.js error overlay for guests
+      setUser(response.data ?? null);
+    } catch {
       setUser(null);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
+  /**
+   * Check auth state on first load
+   */
   useEffect(() => {
     refreshUser();
   }, [refreshUser]);
 
+  /**
+   * Login
+   */
   const login = useCallback(
     async (email: string, password: string) => {
       setIsLoading(true);
@@ -74,6 +90,7 @@ export function AuthProvider({
           password,
         });
 
+        // Cookie is already set by backend
         await refreshUser();
       } finally {
         setIsLoading(false);
@@ -82,6 +99,9 @@ export function AuthProvider({
     [refreshUser]
   );
 
+  /**
+   * Register
+   */
   const register = useCallback(
     async (
       fullName: string,
@@ -103,10 +123,15 @@ export function AuthProvider({
     []
   );
 
+  /**
+   * Logout
+   */
   const logout = useCallback(async () => {
-    await authApi.logout();
-
-    setUser(null);
+    try {
+      await authApi.logout();
+    } finally {
+      setUser(null);
+    }
   }, []);
 
   return (

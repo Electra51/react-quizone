@@ -9,11 +9,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { Mail, Lock, CheckCircle2 } from "lucide-react";
 import { LoginFormData, loginSchema } from "@/src/lib/validations/auth";
-import { authApi } from "@/src/lib/api";
+
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import { authApi } from "@/src/lib/api/auth";
 
 const trustPoints = [
   "Practice real, interview-style frontend questions",
