@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { AuthProvider } from "../context/AuthContext";
+import Navbar from "../components/layout/Navbar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://example.com"),
@@ -47,27 +49,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        {children}
-        <Script
-          id="quize-structured-data"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "FrontendIQ",
-              applicationCategory: "EducationalApplication",
-              operatingSystem: "Web",
-              description:
-                "A frontend developer assessment platform for evaluating React, Next.js, TypeScript, and Tailwind CSS skills.",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-              },
-            }),
-          }}
-        />
+         <AuthProvider>
+          <main className="">{children}</main>
+         </AuthProvider>
+   
+        
       </body>
     </html>
   );

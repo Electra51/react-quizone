@@ -85,7 +85,7 @@ export default function Hero() {
             <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
             <div className="ml-3 flex gap-4 font-mono text-xs">
-              <span className="border-b-2 border-indigo-400 pb-[11px] -mb-[11px] text-slate-200">
+              <span className="border-b-2 border-indigo-400 pb-2.75 -mb-2.75 text-slate-200">
                 useDebounce.ts
               </span>
               <span className="text-slate-500">Result.tsx</span>
@@ -104,7 +104,7 @@ export default function Hero() {
                   <span className="text-violet-400">const</span> timer = setTimeout(() =&gt; setDebounced(value), delay);
                 </span></div>
                 <div className="flex bg-amber-400/10"><span className="mr-4 select-none text-slate-600">6</span><span className="pl-8"><span className="text-violet-400">return</span> () =&gt; clearTimeout(timer);</span></div>
-                <div className="flex bg-amber-400/10"><span className="mr-4 select-none text-slate-600">7</span><span className="pl-4">{"}, [value]);"} <span className="ml-2 inline-block h-4 w-[2px] animate-pulse bg-slate-400 align-middle" /></span></div>
+                <div className="flex bg-amber-400/10"><span className="mr-4 select-none text-slate-600">7</span><span className="pl-4">{"}, [value]);"} <span className="ml-2 inline-block h-4 w-0.5 animate-pulse bg-slate-400 align-middle" /></span></div>
                 <div className="flex"><span className="mr-4 select-none text-slate-600">8</span><span></span></div>
                 <div className="flex"><span className="mr-4 select-none text-slate-600">9</span><span className="pl-4"><span className="text-violet-400">return</span> debounced;</span></div>
                 <div className="flex"><span className="mr-4 select-none text-slate-600">10</span><span>{"}"}</span></div>

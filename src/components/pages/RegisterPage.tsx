@@ -6,12 +6,18 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { User, Mail, Lock, Home, CheckCircle2 } from "lucide-react";
+import { User, Mail, Lock, CheckCircle2 } from "lucide-react";
 import { RegisterFormData, registerSchema } from "@/src/lib/validations/auth";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
 import { authApi } from "@/src/lib/api";
 import Image from "next/image";
+
+const trustPoints = [
+  "Benchmark your React, Next.js & TypeScript skills",
+  "Get a role-ready assessment report you can share",
+  "Track progress with instant, guided feedback",
+];
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -84,30 +90,65 @@ export default function RegisterPage() {
   };
 
   return (
-    <div
-      className="grid grid-cols-1 md:grid-cols-[45%_55%] md:gap-3 p-8"
-    >
-      <div className="flex flex-col justify-center items-center gap-3">
+    <div className="grid min-h-screen grid-cols-1 items-stretch gap-3 p-4 md:grid-cols-[46%_50%] md:p-8">
+      {/* Left branding panel */}
+      <div className="relative hidden overflow-hidden rounded-3xl bg-linear-to-br from-indigo-100 via-violet-500 to-indigo-700 p-10 text-white md:flex md:flex-col md:justify-between">
+        {/* decorative glow */}
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-28 -left-16 h-72 w-72 rounded-full bg-indigo-400/20 blur-3xl" />
+
+          <div className="relative flex items-center gap-3">
+                 <Image
+                   src="/logo1.png"
+                   alt="FrontendIQ logo"
+                   width={60}
+                   height={60}
+                   className="h-10 w-10 md:h-15 md:w-16 rounded-lg object-cover"
+                   priority
+                 />
+                 <span className="text-lg font-semibold tracking-tight mt-5 -pl-5">FrontendIQ</span>
+               </div>
+
+        <div className="relative">
+          <h1 className="text-4xl font-bold leading-tight tracking-tight">
+            Create your account.
+          </h1>
+          <p className="mt-3 max-w-sm text-indigo-100">
+            Start your frontend assessment journey and see exactly where your
+            skills stand today.
+          </p>
+        </div>
+
+        <ul className="relative space-y-3">
+          {trustPoints.map((point) => (
+            <li key={point} className="flex items-start gap-2.5 text-sm text-indigo-50">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-white" />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Mobile-only compact header (shown when branding panel is hidden) */}
+      <div className="flex flex-col items-center gap-3 md:hidden">
         <Image
           src="/logo1.png"
           alt="FrontendIQ logo"
-          width={400}
-          height={36}
-          className="h-9 w-9 md:h-13 md:w-16 rounded-lg object-cover"
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-lg object-cover"
           priority
         />
-    
-        
-        <div className="text-center mb-8 mt-5">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Create Account
-          </h1>
-          <p className="text-gray-600">
+        <div className="mt-2 mb-2 text-center">
+          <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
+          <p className="mt-1 text-sm text-gray-600">
             Start your frontend assessment journey
           </p>
         </div>
       </div>
-      <div className="lg:pr-26">
+
+      {/* Right side — form */}
+      <div className="flex flex-col justify-center lg:pr-10">
         {apiError && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -117,7 +158,8 @@ export default function RegisterPage() {
             <p className="text-red-800 text-sm font-medium">⚠ {apiError}</p>
           </motion.div>
         )}
-
+   <div className="flex justify-center px-4 md:px-8">
+          <div className="w-full max-w-lg">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <Input
             label="Full Name"
@@ -139,53 +181,53 @@ export default function RegisterPage() {
             {...register("email")}
           />
 
-         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-3">
-           <div>
-            <Input
-              label="Password"
-              type="password"
-              placeholder="Create a strong password"
-              icon={<Lock className="w-5 h-5" />}
-              error={errors.password?.message}
-              helperText="Must contain uppercase, lowercase, number & special character"
-              disabled={isLoading}
-              {...register("password")}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-3">
+            <div>
+              <Input
+                label="Password"
+                type="password"
+                placeholder="Create a strong password"
+                icon={<Lock className="w-5 h-5" />}
+                error={errors.password?.message}
+                helperText="Must contain uppercase, lowercase, number & special character"
+                disabled={isLoading}
+                {...register("password")}
+              />
 
-            {password && (
-              <div className="mt-2">
-                <div className="flex gap-1 mb-1">
-                  {[1, 2, 3, 4, 5].map((level) => (
-                    <div
-                      key={level}
-                      className={`h-1 flex-1 rounded-full transition-all ${
-                        level <= passwordStrength.strength
-                          ? passwordStrength.color
-                          : "bg-gray-200"
-                      }`}
-                    />
-                  ))}
+              {password && (
+                <div className="mt-2">
+                  <div className="flex gap-1 mb-1">
+                    {[1, 2, 3, 4, 5].map((level) => (
+                      <div
+                        key={level}
+                        className={`h-1 flex-1 rounded-full transition-all ${
+                          level <= passwordStrength.strength
+                            ? passwordStrength.color
+                            : "bg-gray-200"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-xs text-gray-600">
+                    Password strength:{" "}
+                    <span className="font-semibold">
+                      {passwordStrength.label}
+                    </span>
+                  </p>
                 </div>
-                <p className="text-xs text-gray-600">
-                  Password strength:{" "}
-                  <span className="font-semibold">
-                    {passwordStrength.label}
-                  </span>
-                </p>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          <Input
-            label="Confirm Password"
-            type="password"
-            placeholder="Re-enter your password"
-            icon={<Lock className="w-5 h-5" />}
-            error={errors.confirmPassword?.message}
-            disabled={isLoading}
-            {...register("confirmPassword")}
-          />
-         </div>
+            <Input
+              label="Confirm Password"
+              type="password"
+              placeholder="Re-enter your password"
+              icon={<Lock className="w-5 h-5" />}
+              error={errors.confirmPassword?.message}
+              disabled={isLoading}
+              {...register("confirmPassword")}
+            />
+          </div>
 
           <div className="flex items-start gap-2">
             <input
@@ -257,6 +299,7 @@ export default function RegisterPage() {
             Login
           </Link>
         </p>
+        </div></div>
       </div>
     </div>
   );

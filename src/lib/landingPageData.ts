@@ -1,21 +1,4 @@
-export const heroHighlights = [
-  {
-    title: "Real-world scenarios",
-    description: "Practice with assessment-style questions that mirror production frontend work.",
-  },
-  {
-    title: "Skill-based paths",
-    description: "Follow focused tracks for React, Next.js, TypeScript, and Tailwind CSS.",
-  },
-  {
-    title: "Instant feedback",
-    description: "Understand strengths quickly with guided explanations and review hints.",
-  },
-  {
-    title: "Team-ready insights",
-    description: "Share progress and outcomes with a simple, clear learning report.",
-  },
-];
+
 
 export const featureCards = [
   {

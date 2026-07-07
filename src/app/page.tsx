@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { faqs, featureCards, featuredAssessments, heroHighlights, performers, quizCategories, testimonials } from "../lib/landingPageData";
+import { faqs, featureCards, featuredAssessments, performers, quizCategories, testimonials } from "../lib/landingPageData";
 import { topics } from "../lib/quizData";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Hero from "../components/pages/homepage/Hero";
+import WhyTeamsUseIt from "../components/pages/homepage/WhyTeamsUseIt";
 
 
 export const metadata: Metadata = {
@@ -21,41 +22,9 @@ export default function HomePage() {
     <div className="min-h-screen bg-slate-50">
       <Navbar />
       <main>
-        {/* <section className="container-custom grid gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">
-              Frontend Developer Assessment Platform
-            </p>
-            <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-              Measure real frontend skills with modern, role-ready assessments.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-slate-600">
-              FrontendIQ helps hiring teams, educators, and developers benchmark React, Next.js, TypeScript, and Tailwind CSS expertise through structured assessments and guided practice.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link href="/assessments" className="btn-primary">
-                Explore Assessments
-              </Link>
-              <Link href="/topics" className="btn-secondary">
-                View Topics
-              </Link>
-            </div>
-          </div>
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-            <div className="grid gap-4 sm:grid-cols-2">
-              {heroHighlights.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <h2 className="font-semibold text-slate-900">{item.title}</h2>
-                  <p className="mt-2 text-sm text-slate-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
-
         <Hero/>
-
-        <section className="container-custom pb-16">
+<WhyTeamsUseIt/>
+        {/* <section className="container-custom pb-16">
           <div className="mb-8 max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">Why teams use it</p>
             <h2 className="mt-2 text-3xl font-bold text-slate-900">A practical assessment experience for modern frontend roles</h2>
@@ -68,7 +37,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <section className="container-custom pb-16">
           <div className="mb-8 max-w-3xl">

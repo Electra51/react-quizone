@@ -44,7 +44,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={inputType}
             className={cn(
-              "w-full px-4 py-3 bg-white border rounded-lg transition-all duration-200",
+              "w-full px-4 py-2 bg-white border rounded-lg transition-all duration-200",
               "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
               "placeholder:text-gray-400",
               icon && "pl-11",
@@ -72,11 +72,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         {/* Helper Text or Error */}
         {error ? (
-          <p className="text-sm text-red-500 flex items-center gap-1">
+          <p className="text-[13px] text-red-500 flex items-center gap-1">
             <span>⚠</span> {error}
           </p>
         ) : helperText ? (
-          <p className="text-sm text-gray-500">{helperText}</p>
+          <p className="text-[13px] text-gray-500">{helperText}</p>
         ) : null}
       </div>
     );
