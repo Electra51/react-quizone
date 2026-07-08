@@ -3,6 +3,17 @@ export interface RegisterPayload {
   fullName: string;
   email: string;
   password: string;
+  role?: string;
+}
+
+export interface AuthResponse {
+  user: {
+    _id: string;
+    email: string;
+    role: string;
+    fullName: string;
+  };
+  accessToken: string;
 }
 
 export interface LoginPayload {
@@ -12,14 +23,14 @@ export interface LoginPayload {
 
 export const authApi = {
   register(data: RegisterPayload) {
-    return apiRequest("/auth/register", {
+    return apiRequest<{ user: AuthResponse["user"] }>("/auth/register", {
       method: "POST",
       body: JSON.stringify(data),
     });
   },
 
   login(data: LoginPayload) {
-    return apiRequest("/auth/login", {
+    return apiRequest<AuthResponse>("/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
     });

@@ -76,13 +76,21 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      await authApi.login({
+      const response = await authApi.login({
         email: data.email,
         password: data.password,
       });
 
       reset();
-      router.push("/dashboard");
+      
+      const role = response.data?.user?.role || "candidate";
+      if (role === "admin") {
+        router.push("/admin/dashboard");
+      } else if (role === "recruiter") {
+        router.push("/recruiter/dashboard");
+      } else {
+        router.push("/candidate/dashboard");
+      }
     } catch (error: any) {
       setApiError(error.message || "Invalid email or password");
     } finally {

@@ -39,6 +39,7 @@ export const registerSchema = z
       .refine((val) => val === true, {
         message: "You must agree to the terms and conditions",
       }),
+    role: z.enum(["candidate", "recruiter", "admin"]).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
